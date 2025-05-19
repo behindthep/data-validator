@@ -1,0 +1,30 @@
+#!/usr/bin/env php
+<?php
+
+$autoloadPath1 = __DIR__ . '/../../../autoload.php';
+$autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
+if (file_exists($autoloadPath1)) {
+    require_once $autoloadPath1;
+} else {
+    require_once $autoloadPath2;
+}
+
+use Validator\Validator;
+
+$v = new Validator();
+
+$schema = $v->number();
+
+$schema->isValid(null); // true
+
+$schema->required();
+
+$schema->isValid(null); // false
+$schema->isValid(7); // true
+
+$schema->positive()->isValid(10); // true
+
+$schema->range(-5, 5);
+
+$schema->isValid(-3); // false
+$schema->isValid(5); // true
