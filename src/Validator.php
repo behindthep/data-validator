@@ -2,7 +2,11 @@
 
 namespace Validator;
 
-use Validator\Validators\{StringValidator, NumberValidator};
+use Validator\Validators\{
+    StringValidator,
+    NumberValidator,
+    ArrayValidator
+};
 
 class Validator
 {
@@ -14,5 +18,10 @@ class Validator
     public function number(): NumberValidator
     {
         return new NumberValidator();
+    }
+
+    public function array(): ArrayValidator
+    {
+        return new ArrayValidator();
     }
 }
