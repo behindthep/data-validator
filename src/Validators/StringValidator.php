@@ -14,17 +14,17 @@ class StringValidator
             if (is_null($string) || $string === '') {
                 return false;
             }
-        }
 
-        if ($this->contains !== null) {
-            if (str_contains($string, $this->contains) === false) {
-                return false;
+            if ($this->contains !== null) {
+                if (!str_contains($string, $this->contains)) {
+                    return false;
+                }
             }
-        }
 
-        if ($this->minLength !== null) {
-            if (strlen($string) < $this->minLength) {
-                return false;
+            if ($this->minLength !== null) {
+                if (strlen($string) < $this->minLength) {
+                    return false;
+                }
             }
         }
 

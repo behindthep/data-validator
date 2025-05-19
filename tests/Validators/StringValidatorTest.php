@@ -7,51 +7,47 @@ use Validator\Validator;
 
 class StringValidatorTest extends TestCase
 {
-    public function testIsValid(): void
+    private $schema;
+
+    protected function setUp(): void
     {
         $v = new Validator();
-        $schema = $v->string();
+        $this->schema = $v->string();
+    }
 
-        $this->assertTrue($schema->isValid(''));
-        $this->assertTrue($schema->isValid(null));
-        $this->assertTrue($schema->isValid('what does the fox say'));
+    public function testIsValidWithoutRequired(): void
+    {
+        $this->assertTrue($this->schema->isValid(null));
+        $this->assertTrue($this->schema->isValid(''));
+        $this->assertTrue($this->schema->isValid('Tree'));
     }
 
     public function testRequired(): void
     {
-        $v = new Validator();
-        $schema = $v->string();
+        $this->schema->required();
 
-        $schema->required();
-
-        $this->assertFalse($schema->isValid(''));
-        $this->assertFalse($schema->isValid(null));
-        $this->assertTrue($schema->isValid('what does the fox say'));
+        $this->assertFalse($this->schema->isValid(null));
+        $this->assertFalse($this->schema->isValid(''));
+        $this->assertTrue($this->schema->isValid('Tree'));
     }
 
     public function testContains(): void
     {
-        $v = new Validator();
-        $schema = $v->string();
+        $this->schema->required()->contains('re');
 
-        $schema->contains('what');
-
-        $this->assertFalse($schema->isValid('does the fox say'));
-        $this->assertTrue($schema->isValid('what does the fox say'));
+        $this->assertFalse($this->schema->isValid('Tea'));
+        $this->assertTrue($this->schema->isValid('Tree'));
     }
 
     public function testMinLength(): void
     {
-        $v = new Validator();
-        $schema = $v->string();
+        $this->schema->required()->minLength(10);
 
-        $schema->minLength(10);
+        $this->assertFalse($this->schema->isValid('Tree'));
+        $this->assertTrue($this->schema->isValid('Green peach tree'));
 
-        $this->assertFalse($schema->isValid('Tree'));
-        $this->assertTrue($schema->isValid('what does the fox say'));
+        $this->schema->minLength(4);
 
-        $schema->minLength(4);
-
-        $this->assertTrue($schema->isValid('Tree'));
+        $this->assertTrue($this->schema->isValid('Tree'));
     }
 }

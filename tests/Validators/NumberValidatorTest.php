@@ -7,48 +7,46 @@ use Validator\Validator;
 
 class NumberValidatorTest extends TestCase
 {
-    public function testIsValid(): void
+    private $schema;
+
+    protected function setUp(): void
     {
         $v = new Validator();
-        $schema = $v->number();
+        $this->schema = $v->number();
+    }
 
-        $this->assertTrue($schema->isValid(null));
-        $this->assertTrue($schema->isValid(0));
-        $this->assertTrue($schema->isValid(10));
+    public function testIsValidWithoutRequired(): void
+    {
+        $this->assertTrue($this->schema->isValid(null));
+        $this->assertTrue($this->schema->isValid(0));
+        $this->assertTrue($this->schema->isValid(-5));
+        $this->assertTrue($this->schema->isValid(10));
     }
 
     public function testRequired(): void
     {
-        $v = new Validator();
-        $schema = $v->number();
+        $this->schema->required();
 
-        $schema->required();
-
-        $this->assertFalse($schema->isValid(null));
-        $this->assertTrue($schema->isValid(0));
-        $this->assertTrue($schema->isValid(10));
+        $this->assertFalse($this->schema->isValid(null));
+        $this->assertTrue($this->schema->isValid(0));
+        $this->assertTrue($this->schema->isValid(-5));
+        $this->assertTrue($this->schema->isValid(10));
     }
 
     public function testPositive(): void
     {
-        $v = new Validator();
-        $schema = $v->number();
+        $this->schema->required()->positive();
 
-        $schema->positive();
-
-        $this->assertFalse($schema->isValid(-10));
-        $this->assertTrue($schema->isValid(10));
+        $this->assertFalse($this->schema->isValid(-10));
+        $this->assertTrue($this->schema->isValid(10));
     }
 
     public function testRange(): void
     {
-        $v = new Validator();
-        $schema = $v->number();
+        $this->schema->required()->range(-5, 5);
 
-        $schema->range(-5, 5);
-
-        $this->assertFalse($schema->isValid(10));
-        $this->assertTrue($schema->isValid(-5));
-        $this->assertTrue($schema->isValid(3));
+        $this->assertFalse($this->schema->isValid(10));
+        $this->assertTrue($this->schema->isValid(-5));
+        $this->assertTrue($this->schema->isValid(3));
     }
 }
