@@ -4,10 +4,11 @@ namespace Tests\Validators;
 
 use PHPUnit\Framework\TestCase;
 use Validator\Validator;
+use Validator\Schemas\NumberSchema;
 
-class NumberValidatorTest extends TestCase
+class NumberSchemaTest extends TestCase
 {
-    private $schema;
+    private NumberSchema $schema;
 
     protected function setUp(): void
     {

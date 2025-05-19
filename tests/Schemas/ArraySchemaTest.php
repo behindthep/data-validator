@@ -4,10 +4,11 @@ namespace Tests\Validators;
 
 use PHPUnit\Framework\TestCase;
 use Validator\Validator;
+use Validator\Schemas\ArraySchema;
 
-class ArrayValidatorTest extends TestCase
+class ArraySchemaTest extends TestCase
 {
-    private $schema;
+    private ArraySchema $schema;
 
     protected function setUp(): void
     {

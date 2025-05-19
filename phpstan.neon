@@ -5,6 +5,4 @@ parameters:
         - src
         - tests
     ignoreErrors:
-        - identifier: missingType.generics
         - identifier: missingType.iterableValue
-        - identifier: argument.type 

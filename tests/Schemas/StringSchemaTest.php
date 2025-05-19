@@ -4,10 +4,11 @@ namespace Tests\Validators;
 
 use PHPUnit\Framework\TestCase;
 use Validator\Validator;
+use Validator\Schemas\StringSchema;
 
-class StringValidatorTest extends TestCase
+class StringSchemaTest extends TestCase
 {
-    private $schema;
+    private StringSchema $schema;
 
     protected function setUp(): void
     {

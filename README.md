@@ -1,8 +1,9 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/behindthep/php-oop-project-60/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/behindthep/php-oop-project-60/actions)
 
-Валидатор данных – библиотека, проверять корректность любых данных. программы работают с внешними данными, которые нужно проверять на корректность. данные форм заполняемых пользователями. https://github.com/jquense/yup
+Валидатор данных – библиотека, проверять корректность любых данных. программы работают с внешними данными, которые нужно проверять на корректность. данные форм заполняемых пользователями.
 
+```php
 // строки
 $schema = $v->required()->string();
 
@@ -32,3 +33,4 @@ $schema = $v->string()->test('startWith', 'H');
 
 $schema->isValid('exlet'); // false
 $schema->isValid('Hexlet'); // true
+```

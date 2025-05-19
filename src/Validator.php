@@ -2,26 +2,39 @@
 
 namespace Validator;
 
-use Validator\Validators\{
-    StringValidator,
-    NumberValidator,
-    ArrayValidator
+use Validator\Schemas\{
+    StringSchema,
+    NumberSchema,
+    ArraySchema
 };
 
 class Validator
 {
-    public function string(): StringValidator
+    private array $customValidators = [];
+
+    public function string(): StringSchema
     {
-        return new StringValidator();
+        return new StringSchema($this->getCustomValidators('string'));
     }
 
-    public function number(): NumberValidator
+    public function number(): NumberSchema
     {
-        return new NumberValidator();
+        return new NumberSchema($this->getCustomValidators('number'));
     }
 
-    public function array(): ArrayValidator
+    public function array(): ArraySchema
     {
-        return new ArrayValidator();
+        return new ArraySchema($this->getCustomValidators('array'));
+    }
+
+    public function addValidator(string $type, string $name, callable $fn): self
+    {
+        $this->customValidators[$type][$name] = $fn;
+        return $this;
+    }
+
+    private function getCustomValidators(string $type): array
+    {
+        return $this->customValidators[$type] ?? [];
     }
 }
