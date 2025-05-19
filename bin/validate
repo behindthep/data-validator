@@ -1,0 +1,32 @@
+#!/usr/bin/env php
+<?php
+
+$autoloadPath1 = __DIR__ . '/../../../autoload.php';
+$autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
+if (file_exists($autoloadPath1)) {
+    require_once $autoloadPath1;
+} else {
+    require_once $autoloadPath2;
+}
+
+use Validator\Validator;
+
+$v = new Validator();
+
+$schema = $v->string();
+
+$schema->isValid(''); // true
+$schema->isValid(null); // true
+$schema->isValid('what does the fox say'); // true
+
+$schema->required();
+
+$schema2->isValid(''); // true
+$schema->isValid(null); // false
+$schema->isValid(''); // false
+$schema->isValid('hexlet'); // true
+
+$schema->contains('what')->isValid('what does the fox say'); // true
+$schema->contains('whatthe')->isValid('what does the fox say'); // false
+
+$schema->minLength(10)->minLength(5)->isValid('Hexlet'); // true
