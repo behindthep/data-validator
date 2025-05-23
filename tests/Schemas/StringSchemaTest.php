@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Validators;
+namespace Tests\Schemas;
 
 use PHPUnit\Framework\TestCase;
 use Validator\Validator;
@@ -12,32 +12,27 @@ class StringSchemaTest extends TestCase
 
     protected function setUp(): void
     {
-        $v = new Validator();
-        $this->schema = $v->string();
-    }
-
-    public function testIsValidWithoutRequired(): void
-    {
-        $this->assertTrue($this->schema->isValid(null));
-        $this->assertTrue($this->schema->isValid(''));
-        $this->assertTrue($this->schema->isValid('Tree'));
+        $this->schema = (new Validator())->string();
     }
 
     public function testRequired(): void
     {
+        $this->assertTrue($this->schema->isValid(null));
+
         $this->schema->required();
 
         $this->assertFalse($this->schema->isValid(null));
         $this->assertFalse($this->schema->isValid(''));
+        $this->assertFalse($this->schema->isValid(5));
         $this->assertTrue($this->schema->isValid('Tree'));
     }
 
     public function testContains(): void
     {
-        $this->schema->required()->contains('re');
+        $this->schema->required()->contains('White');
 
         $this->assertFalse($this->schema->isValid('Tea'));
-        $this->assertTrue($this->schema->isValid('Tree'));
+        $this->assertTrue($this->schema->isValid('White tree'));
     }
 
     public function testMinLength(): void

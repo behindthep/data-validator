@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Validators;
+namespace Tests\Schemas;
 
 use PHPUnit\Framework\TestCase;
 use Validator\Validator;
@@ -12,24 +12,17 @@ class NumberSchemaTest extends TestCase
 
     protected function setUp(): void
     {
-        $v = new Validator();
-        $this->schema = $v->number();
-    }
-
-    public function testIsValidWithoutRequired(): void
-    {
-        $this->assertTrue($this->schema->isValid(null));
-        $this->assertTrue($this->schema->isValid(0));
-        $this->assertTrue($this->schema->isValid(-5));
-        $this->assertTrue($this->schema->isValid(10));
+        $this->schema = (new Validator())->number();
     }
 
     public function testRequired(): void
     {
+        $this->assertTrue($this->schema->isValid(null));
+
         $this->schema->required();
 
         $this->assertFalse($this->schema->isValid(null));
-        $this->assertTrue($this->schema->isValid(0));
+        $this->assertFalse($this->schema->isValid('string'));
         $this->assertTrue($this->schema->isValid(-5));
         $this->assertTrue($this->schema->isValid(10));
     }
