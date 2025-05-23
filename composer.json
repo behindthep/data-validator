@@ -1,8 +1,5 @@
 {
-  "name": "hexlet/code",
-  "bin": [
-    "bin/validate"
-  ],
+  "name": "behindthep/data-validator",
   "type": "library",
   "authors": [
     {
@@ -10,7 +7,7 @@
       "email": "alex.kolvah@mail.ru"
     }
   ],
-  "description": "Validator",
+  "description": "Data validator",
   "license": "MIT",
   "autoload": {
     "psr-4": {
