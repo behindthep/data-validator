@@ -27,6 +27,22 @@ class Validator
         return new ArraySchema($this->getCustomValidators('array'));
     }
 
+    /*
+    $customValidators = [
+        "string" = [
+            "startWith" = fn($value, $start) => str_starts_with($value, $start),
+            ...
+        ],
+        "number" = [
+            "min" = fn($value, $min) => $value >= $min,
+            ...
+        ],
+        "array" = [
+            "inArray" = fn($array, $inArray) => in_array($inArray, $array),
+            ...
+        ],
+    ]
+    */
     public function addValidator(string $type, string $name, callable $fn): self
     {
         $this->customValidators[$type][$name] = $fn;

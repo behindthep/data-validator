@@ -4,8 +4,6 @@ namespace Validator\Schemas;
 
 class ArraySchema extends Schema
 {
-    protected array $rules = [];
-
     public function required(): self
     {
         $this->validators['required'] = fn($value) => is_array($value);
@@ -18,6 +16,16 @@ class ArraySchema extends Schema
         return $this;
     }
 
+    /*
+    $key = 'name'
+    значения — объекты схем, для валидации соответствующих элементов
+    $schema = $v->string()->required()
+
+    $value = ['name' => '', 'age' => null];
+
+    проверка isValid() для соответствующей схемы
+    $v->string()->required()->isValid('')
+    */
     public function shape(array $schemas): self
     {
         $this->validators['shape'] = function ($value) use ($schemas): bool {
@@ -29,6 +37,7 @@ class ArraySchema extends Schema
 
             return true;
         };
+
         return $this;
     }
 }

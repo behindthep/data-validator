@@ -4,8 +4,6 @@ namespace Validator\Schemas;
 
 class StringSchema extends Schema
 {
-    protected array $rules = [];
-
     public function required(): self
     {
         $this->validators['required'] = function ($value): bool {

@@ -4,8 +4,6 @@ namespace Validator\Schemas;
 
 class NumberSchema extends Schema
 {
-    protected array $rules = [];
-
     public function required(): self
     {
         $this->validators['required'] = fn($value) => is_numeric($value);
