@@ -1,36 +1,59 @@
-### Hexlet tests and linter status:
-[![Actions Status](https://github.com/behindthep/php-oop-project-60/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/behindthep/php-oop-project-60/actions)
+# data-validator
 
-Валидатор данных – библиотека, проверять корректность любых данных. программы работают с внешними данными, которые нужно проверять на корректность. данные форм заполняемых пользователями.
+[![Actions Status](https://github.com/behindthep/php-oop-project-60/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/behindthep/php-oop-project-60/actions)
+[![PHP CI](https://github.com/behindthep/php-oop-project-60/actions/workflows/workflow.yml/badge.svg)](https://github.com/behindthep/php-oop-project-60/actions/workflows/workflow.yml)
+
+Валидатор данных – библиотека для проверяки корректность данных.
+
+### Setup
+
+```bash
+make setup
+```
+
+### Usage
+
+#### String Validation
 
 ```php
-// строки
-$schema = $v->required()->string();
+$v = new Validator();
 
-$schema->isValid('what does the fox say'); // true
-$schema->isValid(''); // false
+$strSchema = $v->string()->required()->contains('White');
+$strSchema->isValid('Car'); // false
+$strSchema->isValid('White car'); // true
+```
 
-// числа
-$schema = $v->required()->number()->positive();
+#### Number Validation
 
-$schema->isValid(-10); // false
-$schema->isValid(10); // true
+```php
+$numSchema = $v->number()->required()->positive();
+$numSchema->isValid(-10); // false
+$numSchema->isValid(5); // true
+```
 
-// массив с поддержкой проверки структуры
-$schema = $v->array()->sizeof(2)->shape([
+#### Array Validation
+
+```php
+$arrSchema = $v->array()->required()->sizeof(2);
+$arrSchema->isValid([1, 2, 3]); // false
+$arrSchema->isValid([true, []]); // true
+
+$arrShapeSchema = $v->array()->sizeof(2)->shape([
     'name' => $v->string()->required(),
     'age' => $v->number()->positive(),
 ]);
 
-$schema->isValid(['name' => 'kolya', 'age' => 100]); // true
-$schema->isValid(['name' => '', 'age' => null]); // false
+$arrShapeSchema->isValid(['name' => 'ada', 'age' => -5]); // false
+$arrShapeSchema->isValid(['name' => 'maya', 'age' => null]); // true
+```
 
-// Добавление нового валидатора
+#### Custom Validation
+
+```php
 $fn = fn($value, $start) => str_starts_with($value, $start);
 $v->addValidator('string', 'startWith', $fn);
 
-$schema = $v->string()->test('startWith', 'H');
-
-$schema->isValid('exlet'); // false
-$schema->isValid('Hexlet'); // true
+$customSchema = $v->string()->test('startWith', 'H');
+$customSchema->isValid('ello'); // false
+$customSchema->isValid('Hello'); // true
 ```
