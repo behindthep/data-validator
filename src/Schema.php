@@ -1,11 +1,11 @@
 <?php
 
-namespace Validator\Schemas;
+namespace Validator;
 
 abstract class Schema
 {
     protected array $validators = [];
-    private array $customValidators = [];
+    protected array $customValidators = [];
 
     public function __construct(array $customValidators)
     {

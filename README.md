@@ -16,6 +16,8 @@ make setup
 #### String Validation
 
 ```php
+use Validator\Validator;
+
 $v = new Validator();
 
 $strSchema = $v->string()->required()->contains('White');

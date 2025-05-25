@@ -1,7 +1,12 @@
 <?php
 
-namespace Validator\Schemas;
+namespace Validator;
 
+/**
+ * required – любая непустая строка
+ * minLength – строка равна или длиннее указанного числа
+ * contains – строка содержит определённую подстроку
+ */
 class StringSchema extends Schema
 {
     public function required(): self
@@ -22,10 +27,10 @@ class StringSchema extends Schema
         return $this;
     }
 
-    public function minLength(int $length): self
+    public function minLength(int $minLength): self
     {
-        $this->validators['minLength'] = function ($value) use ($length): bool {
-            return mb_strlen($value) >= $length;
+        $this->validators['minLength'] = function ($value) use ($minLength): bool {
+            return mb_strlen($value) >= $minLength;
         };
 
         return $this;

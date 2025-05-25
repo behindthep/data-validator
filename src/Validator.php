@@ -2,12 +2,6 @@
 
 namespace Validator;
 
-use Validator\Schemas\{
-    StringSchema,
-    NumberSchema,
-    ArraySchema
-};
-
 class Validator
 {
     private array $customValidators = [];
@@ -46,6 +40,7 @@ class Validator
     public function addValidator(string $type, string $name, callable $fn): self
     {
         $this->customValidators[$type][$name] = $fn;
+
         return $this;
     }
 
