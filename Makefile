@@ -1,5 +1,8 @@
-setup:
+install:
 	composer install
+
+console:
+	composer exec --verbose psysh
 
 lint:
 	composer exec --verbose phpcs -- src tests

@@ -1,18 +1,15 @@
 <?php
 
-namespace Validator;
+namespace Validator\Schemas;
 
-/**
- * required – любая непустая строка
- * minLength – строка равна или длиннее указанного числа
- * contains – строка содержит определённую подстроку
- */
+use Validator\Schema;
+
 class StringSchema extends Schema
 {
     public function required(): self
     {
         $this->validators['required'] = function ($value): bool {
-            return is_string($value) && $value !== '';
+            return is_string($value) && !empty($value);
         };
 
         return $this;

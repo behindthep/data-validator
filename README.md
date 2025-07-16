@@ -1,19 +1,38 @@
 # data-validator
 
-[![Actions Status](https://github.com/behindthep/php-oop-project-60/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/behindthep/php-oop-project-60/actions)
-[![PHP CI](https://github.com/behindthep/php-oop-project-60/actions/workflows/workflow.yml/badge.svg)](https://github.com/behindthep/php-oop-project-60/actions/workflows/workflow.yml)
+[![PHP CI](https://github.com/behindthep/data-validator/actions/workflows/phpci.yml/badge.svg)](https://github.com/behindthep/data-validator/actions)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=behindthep_data-validator&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=behindthep_data-validator)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=behindthep_data-validator&metric=bugs)](https://sonarcloud.io/summary/new_code?id=behindthep_data-validator)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=behindthep_data-validator&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=behindthep_data-validator)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=behindthep_data-validator&metric=coverage)](https://sonarcloud.io/summary/new_code?id=behindthep_data-validator)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=behindthep_data-validator&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=behindthep_data-validator)
 
-Валидатор данных – библиотека для проверяки корректность данных.
+Data validator is a library for checking the correctness of data.
 
-### Setup
+## Prerequisites
+
+* Linux
+* PHP >=8.2
+* Xdebug
+* Make
+* Git
+
+## Setup
 
 ```bash
-make setup
+make install
 ```
 
-### Usage
+## Run linter and Tests
 
-#### String Validation
+```bash
+make lint
+make test
+```
+
+---
+
+### String Validation
 
 ```php
 use Validator\Validator;
@@ -25,7 +44,7 @@ $strSchema->isValid('Car'); // false
 $strSchema->isValid('White car'); // true
 ```
 
-#### Number Validation
+### Number Validation
 
 ```php
 $numSchema = $v->number()->required()->positive();
@@ -33,7 +52,7 @@ $numSchema->isValid(-10); // false
 $numSchema->isValid(5); // true
 ```
 
-#### Array Validation
+### Array Validation
 
 ```php
 $arrSchema = $v->array()->required()->sizeof(2);
@@ -49,7 +68,7 @@ $arrShapeSchema->isValid(['name' => 'ada', 'age' => -5]); // false
 $arrShapeSchema->isValid(['name' => 'maya', 'age' => null]); // true
 ```
 
-#### Custom Validation
+### Custom Validation
 
 ```php
 $fn = fn($value, $start) => str_starts_with($value, $start);
