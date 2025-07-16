@@ -7,6 +7,7 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=behindthep_data-validator&metric=coverage)](https://sonarcloud.io/summary/new_code?id=behindthep_data-validator)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=behindthep_data-validator&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=behindthep_data-validator)
 
+
 Data validator is a library for checking the correctness of data.
 
 ## Prerequisites
